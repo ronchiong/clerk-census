@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Anthropometrics Section -->
+<div class="collapsible-section">
+    <button class="collapsible">Anthropometrics</button>
+    <div class="content">
+
+            <!-- New IBW Section -->
+        <div class="ibw-section">
+            <h2>Pediatric Ideal Body Weight Calculator</h2>
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <p></p>
+            <label for="age">Age (Years/Months):</label>
+            <input type="number" id="age" placeholder="Enter age in years, decimal for months (e.g., 0.5 for 6 months)">
+            <label for="current-weight">Current Body Weight (kg):</label>
+            <input type="number" id="current-weight" placeholder="Enter current weight in kg">
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter height in cm (required if >12 years old)">
+            <button id="calculate-ibw">Calculate IBW</button>
+            <p id="ibw-output"></p>
+        </div>
+        </div>
+    </div>
+    
+<!-- Census Section -->
+<div class="collapsible-section">
+    <button class="collapsible">Census</button>
+    <div class="content">
+
+        <div class="input-section">
+            <label for="total-intake">Total Intake: </label>
+            <input id="total-intake" type="text" placeholder="Enter ml values separated by space">
+            <label for="total-output">Total Output: </label>
+            <input id="total-output" type="text" placeholder="Enter ml values separated by space">
+            <div class="additional-inputs">
+                <label for="weight">Weight (kg): </label>
+                <input id="weight" type="number" placeholder="Weight in kg">
+                <label for="hours">Hours: </label>
+                <input id="hours" type="number" value="24" placeholder="Number of hours">
+            </div>
+            <button id="calculate">Calculate</button>
+        </div>
+        <div class="output-section">
+            <p id="output"></p>
+        </div>
+    </div>
+    
+
+    <!-- New CBC Section
+    <div class="cbc-section">
+        <h2>CBC</h2>
+        <textarea id="cbc-input" rows="10" placeholder="Enter CBC values"></textarea>
+        <p></p>
+        <button id="format-cbc">Format CBC</button>
+        <p id="cbc-output"></p>
+    </div>
+    
+</div> -->
+
+    
+
+    <script src="clipboard.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
