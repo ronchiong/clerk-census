@@ -165,3 +165,72 @@ document.getElementById('calculate-ibw').addEventListener('click', function() {
         console.error('Failed to copy: ', err);
     });
 });
+
+// Function to format Vital Signs and copy to clipboard
+function formatVitalSigns() {
+    const inputText = document.getElementById('vital-signs-input').value;
+    const vitalSignsMap = {
+        'Wt': /Wt\s*:\s*([\d.]+) kg/,
+        'Ht': /Ht\s*:\s*([\d.]+) cm/,
+        'BMI': /BMI\s*:\s*([\d.]+)/,
+        'Sys': /Sys\s*:\s*([\d.]+) mmHg/,
+        'Dia': /Dia\s*:\s*([\d.]+) mmHg/,
+        'PR': /PR\s*:\s*([\d.]+) bpm/,
+        'RR': /RR\s*:\s*([\d.]+) cpm/,
+        'T': /T\s*:\s*([\d.]+) °C/,
+        'SpO2': /SpO2\s*:\s*([\d.]+) %/,
+    };
+
+    let formattedVitalSigns = '';
+    const vitalSignsOrder = ['Wt', 'Ht', 'BMI', 'Sys', 'Dia', 'PR', 'RR', 'T', 'SpO2'];
+
+    vitalSignsOrder.forEach(sign => {
+        const regex = vitalSignsMap[sign];
+        const match = inputText.match(regex);
+        if (match) {
+            let value = match[1];
+            // Check if the value is a whole number and format accordingly
+            value = parseFloat(value);
+            value = value % 1 === 0 ? value.toString() : value.toFixed(2);
+
+            switch (sign) {
+                case 'Wt':
+                    formattedVitalSigns += `${value}kg `;
+                    break;
+                case 'Ht':
+                    formattedVitalSigns += `${value}cm BMI `;
+                    break;
+                case 'BMI':
+                    formattedVitalSigns += `${value}\nBP `;
+                    break;
+                case 'Sys':
+                    formattedVitalSigns += `${value}/`;
+                    break;
+                case 'Dia':
+                    formattedVitalSigns += `${value} `;
+                    break;
+                case 'PR':
+                    formattedVitalSigns += `HR ${value} `;
+                    break;
+                case 'RR':
+                    formattedVitalSigns += `RR ${value} `;
+                    break;
+                case 'T':
+                    formattedVitalSigns += `Temp ${value}C `;
+                    break;
+                case 'SpO2':
+                    formattedVitalSigns += `O2 ${value}% at room air`;
+                    break;
+            }
+        }
+    });
+
+    document.getElementById('vital-signs-output').innerText = formattedVitalSigns;
+
+    // Auto-copy formatted vital signs to clipboard
+    navigator.clipboard.writeText(formattedVitalSigns).then(() => {
+        console.log('Formatted vital signs copied to clipboard.');
+    }, (err) => {
+        console.error('Failed to copy formatted vital signs: ', err);
+    });
+}
